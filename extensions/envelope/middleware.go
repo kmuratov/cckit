@@ -41,6 +41,12 @@ func Verify(verifier Verifier) router.MiddlewareFunc {
 							e   *Envelope
 							err error
 						)
+						for i, arg := range iArgs {
+							ctx.Logger().Info("Verify. All arguments",
+								zap.Int("index", i),
+								zap.ByteString("argument", arg),
+							)
+						}
 						if e, err = verifyEnvelope(ctx, verifier, iArgs[methodNamePos], iArgs[payloadPos], iArgs[envelopePos]); err != nil {
 							return nil, err
 						}
